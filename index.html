@@ -3,178 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Donation Portal Access</title>
+    <title>Redirect Gateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GLOBAL --- */
+        /* --- CORE MINIMALIST THEME --- */
         body { 
-            margin: 0; 
-            padding: 20px 10px; 
-            font-family: 'Nunito', sans-serif; 
-            background-color: #1a1a1a; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            margin: 0; padding: 0; font-family: 'Inter', sans-serif; 
+            background-color: #050505; color: #e5e5e5; overflow: hidden;
+            -webkit-touch-callout: none; -webkit-user-select: none; user-select: none;
+            display: flex; justify-content: center; align-items: center; height: 100vh;
         }
 
-        /* --- DEVICE FRAME --- */
-        .app-container {
-            width: 100%;
-            max-width: 450px; 
-            background-color: #fff;
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
-            display: flex;
-            flex-direction: column;
-            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(30px);
+        .animated-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('https://media.discordapp.net/attachments/1486075241720582247/1487442277809787011/images_3.jpeg?ex=69c92812&is=69c7d692&hm=bd1358efc3cd0652cb5d6a7add4158e3b94141f950915fcc2c0a66235c421f65&') repeat; background-size: cover;
+            animation: panBackground 60s linear infinite; z-index: -2; opacity: 0.1;
+        }
+        @keyframes panBackground { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Main Container */
+        .panel {
+            background: #0f0f0f; border: 1px solid #262626; border-radius: 16px;
+            width: 90%; max-width: 400px; padding: 40px 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            position: relative; z-index: 10;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes slideUpFade {
-            to { opacity: 1; transform: translateY(0); }
+        /* Buttons */
+        .btn-blue { 
+            background: #2563eb; color: #fff; padding: 16px 24px; border-radius: 12px; 
+            font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+            transition: 0.2s; border: none; cursor: pointer; width: 100%; display: block;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
+        .btn-blue:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-blue:active { transform: scale(0.98); }
 
-        @keyframes pulseAttention {
-            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
-        }
-
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
-        }
-
-        /* --- VISUALS --- */
-        .roblox-font { font-family: 'Fredoka One', cursive; letter-spacing: 0.5px; }
-        
-        .header-bg { 
-            background: linear-gradient(135deg, #e91e63, #c2185b);
-            border-bottom: 4px solid #880e4f;
-        }
-
-        .floating-logo { animation: floatLogo 3s ease-in-out infinite; }
-        
-        /* Main Action Button */
-        .btn-blue {
-            background-color: #3b82f6; 
-            color: white; 
-            width: 100%; 
-            padding: 20px; 
-            border-radius: 16px; 
-            font-size: 22px; 
-            font-family: 'Fredoka One', cursive;
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            border-bottom: 6px solid #1d4ed8; 
-            cursor: pointer; 
-            display: block;
-            text-align: center;
+        .btn-dark { 
+            background: #141414; color: #fff; border: 1px solid #333; padding: 16px; 
+            border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; 
+            width: 100%; transition: 0.2s; display: flex; justify-content: space-between; align-items: center;
             text-decoration: none;
-            transition: all 0.1s;
-            animation: pulseAttention 2s infinite;
         }
-        .btn-blue:active {
-            transform: translateY(6px) !important;
-            border-bottom-width: 0px !important;
-            margin-bottom: 6px;
-        }
+        .btn-dark:hover { border-color: #2563eb; background: #1a1a1a; transform: translateY(-2px); }
+        .btn-dark:active { transform: scale(0.98); }
 
-        /* Info Cards */
-        .info-card {
-            background-color: #f9fafb;
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-card {
+            background: #0f0f0f; border: 1px solid #262626; border-radius: 16px;
+            width: 90%; max-width: 350px; padding: 24px;
+            transform: translateY(20px); transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+        }
+        .modal-overlay.active .modal-card { transform: translateY(0); }
 
-        .review-card { 
-            background-color: #ecfdf5; 
-            padding: 14px; 
-            border-radius: 12px; 
-            border: 2px solid #a7f3d0; 
-            margin-bottom: 12px; 
-            position: relative;
-        }
-        .stars { color: #f59e0b; font-size: 14px; letter-spacing: 2px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
+    <div class="animated-bg"></div>
 
-    <div class="app-container">
-        <div class="header-bg p-5 flex justify-center items-center shadow-md z-10 relative">
-            <div class="flex items-center gap-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="28" class="floating-logo">
-                <span class="text-white roblox-font text-2xl tracking-tight drop-shadow-md">GIFT PORTAL</span>
-            </div>
+    <div class="panel">
+        <div class="w-16 h-16 bg-blue-600/20 text-blue-500 rounded-full flex items-center justify-center mb-6 border border-blue-500/30 shadow-[0_0_15px_rgba(37,99,235,0.2)]">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
         </div>
+        
+        <h1 class="text-2xl font-black text-white mb-2 tracking-wide">Click Below to Redirect</h1>
+        <p class="text-sm text-gray-400 mb-8 leading-relaxed">
+            Select your destination below to securely access the page.
+        </p>
 
-        <div class="p-6 overflow-y-auto">
+        <button onclick="openModal()" class="btn-blue">
+            Click Here
+        </button>
+    </div>
+
+    <div id="link-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="flex justify-between items-center mb-6 border-b border-[#262626] pb-4">
+                <h2 class="text-lg font-bold text-white">Select Destination</h2>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-white text-xl transition">&times;</button>
+            </div>
             
-            <div class="text-center mb-6">
-                <h1 class="text-gray-800 text-xl roblox-font uppercase mb-2">Almost There!</h1>
-                <p class="text-gray-500 text-sm font-bold mb-5 bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-yellow-700">
-                    👇 Click the blue button below to securely access the official Offline Donation Site. 👇
-                </p>
+            <div class="flex flex-col gap-4">
+                <a href="https://donatepls.vercel.app/" target="_blank" class="btn-dark">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">💰</span>
+                        <span>Free Robux</span>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </a>
                 
-                <a href="https://donatepls.vercel.app/" class="btn-blue">
-                    CONTINUE TO SITE
+                <a href="https://sailorpiece.vercel.app/" target="_blank" class="btn-dark">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">⚓</span>
+                        <span>Sailorpiece Script (no key)</span>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </a>
             </div>
-
-            <div class="w-full h-1 bg-gray-100 rounded-full my-6"></div>
-
-            <h2 class="text-gray-800 text-lg roblox-font uppercase mb-3 px-1">How It Works</h2>
-            <div class="info-card">
-                <div class="flex gap-3 items-start mb-3">
-                    <div class="bg-[#e91e63] text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</div>
-                    <p class="text-sm font-bold text-gray-600">Click the blue button above to enter the portal.</p>
-                </div>
-                <div class="flex gap-3 items-start mb-3">
-                    <div class="bg-[#e91e63] text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</div>
-                    <p class="text-sm font-bold text-gray-600">Enter the exact username of the account you want to link.</p>
-                </div>
-                <div class="flex gap-3 items-start">
-                    <div class="bg-[#e91e63] text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</div>
-                    <p class="text-sm font-bold text-gray-600">Complete the quick human verification to finalize your stand setup.</p>
-                </div>
-            </div>
-
-            <h2 class="text-gray-800 text-lg roblox-font uppercase mb-3 px-1 mt-6">Recent Users</h2>
-            
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <h4 class="font-bold text-gray-800 text-sm">BloxMaster99</h4>
-                <p class="text-xs text-gray-600 mt-1 font-semibold">Saw this on a YouTube short and didn't believe it at first, but it actually worked perfectly. My stand is linked!</p>
-            </div>
-
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <h4 class="font-bold text-gray-800 text-sm">ViperGaming</h4>
-                <p class="text-xs text-gray-600 mt-1 font-semibold">We use this in our Discord server all the time to organize offline gifting. Verification only took me like 2 minutes.</p>
-            </div>
-
-            <h2 class="text-gray-800 text-lg roblox-font uppercase mb-3 px-1 mt-6">F.A.Q</h2>
-            <div class="info-card">
-                <h4 class="font-bold text-gray-800 text-sm mb-1">Is this safe to use?</h4>
-                <p class="text-xs text-gray-500 font-semibold mb-4">Yes! We never ask for your password. We only need your public username to identify where the gifts should be sent.</p>
-                
-                <h4 class="font-bold text-gray-800 text-sm mb-1">Why is there a verification step?</h4>
-                <p class="text-xs text-gray-500 font-semibold">To prevent spam bots from flooding the servers and claiming empty stands, a quick manual verification is required.</p>
-            </div>
-
-            <p class="text-center text-[10px] text-gray-400 font-bold mt-8 mb-2 tracking-widest uppercase">Secure Connection • Verified Portal</p>
         </div>
     </div>
 
-</body>
-</html>
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('link-modal');
 
+        function openModal() {
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Close modal if user clicks outside the card
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+    </html>
+    
